@@ -1,0 +1,48 @@
+<header>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">My Stock</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link actives" aria-current="page" href="/register">Créer un compte</a>
+                    </li>
+
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link actives" aria-current="page" href="/login">Se connecter</a>
+                    </li>
+
+                    <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a href="/user" class="nav-link actives" aria-current="page">Mes produits</a>
+                    </li>
+    
+                    <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                           Dashboard
+                        </a>
+                        <ul class="dropdown-menu bg-light">
+                            <li><a class="dropdown-item" href="/admin"><i class="fa fa-list"></i>Liste</a></li>
+                            <li><a class="dropdown-item" href="/admin/bien/add"><i class="fa fa-plus"></i>Ajouter</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link actives" aria-current="page" th:href="@{/logout}" th:onclick="'return confirm(\'Are you sure you want to logout?\')'">Déconnexion</a>
+                    </li>
+    
+                </ul>
+                <!-- <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form> -->
+            </div>
+        </div>
+    </nav>
+</header>
