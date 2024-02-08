@@ -1,12 +1,13 @@
 <!-- home.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" 
+    th:replace="~{fragments/layout :: layout(~{::title}, ~{::div.main})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Gestion de document | Accueil </title>
 </head>
 <body>
-    <h1>Bienvenu CRM</h1>
+    <div class="main">
+        <p>Gérez tous vos documents facilement</p>
+    </div>
 </body>
 </html>
