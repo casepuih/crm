@@ -24,7 +24,16 @@ public class RoleService {
         return roleRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cannot find Role with ID: " + id)); 
     }
 
-    public Role create(@NonNull Role role){
-        return roleRepository.save(role);
+    public Role create(@NonNull String name){
+        // Check if role already exists 
+        List<Role> role = roleRepository.findByNameLikeIgnoreCase(name);
+        if (role.size() >= 1) {
+            return role.get(0);
+        }
+
+        Role newRole = new Role();
+        newRole.setName(name);
+
+        return roleRepository.save(newRole);
     }
 }

@@ -1,0 +1,28 @@
+<!-- home.html -->
+<!DOCTYPE html>
+<html lang="en" 
+    th:replace="~{fragments/layout :: layout(~{::title}, ~{::div.main})}">
+<head>
+    <title>Gestion de document | Accueil </title>
+</head>
+<body>
+    <div class="main">
+        <h2>Créer un compte</h2>
+        <form method="post">
+            <div>
+                <label for="username">Email :</label>
+                <input type="email" id="username" name="username" required autofocus/>
+            </div>
+            <div>
+                <label for="password">Mot de passe:</label>
+                <input type="password" id="password" name="password" required/>
+            </div>
+            <div>
+                <label for="confirmPassword">Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required/>
+            </div>
+            <button type="submit">Créer un compte</button>
+        </form>
+    </div>
+</body>
+</html>
