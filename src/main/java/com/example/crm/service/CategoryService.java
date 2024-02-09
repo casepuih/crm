@@ -7,6 +7,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import com.example.crm.model.Category;
+import com.example.crm.model.User;
 import com.example.crm.repository.CategoryRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -16,8 +17,16 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private UserService userService;
+
     public List<Category> getAll(){
         return categoryRepository.findAll();
+    }
+
+    public List<Category> getAllByUser(@NonNull Long id){
+        User user = userService.getById(id);
+        return user.getCategories();
     }
 
     public Category getById(@NonNull Long id){
