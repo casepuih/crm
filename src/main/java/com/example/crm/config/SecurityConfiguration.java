@@ -22,7 +22,7 @@ public class SecurityConfiguration {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests((auth) -> auth
                 .requestMatchers("/register", "/login").permitAll()
-                .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                .requestMatchers("/static/**").permitAll()
                 .anyRequest().authenticated() 
             )
             // .formLogin(Customizer.withDefaults())

@@ -47,4 +47,8 @@ public class UserService implements UserDetailsService {
     public boolean isTokenExiste(String token) {
         return userRepository.countByTokenLike(token) > 0;
     }
+
+    public User findByEmail(String username) {
+        return userRepository.findByEmail(username);
+    }
 }

@@ -14,7 +14,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
@@ -41,7 +40,7 @@ public class User implements UserDetails {
     @ManyToOne
     private Role role;
 
-    @ManyToMany
+    @OneToMany
     private List<Category> categories;
 
     @OneToMany

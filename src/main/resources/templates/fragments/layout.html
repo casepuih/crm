@@ -19,12 +19,13 @@
     
     <div th:if="${#authorization.expression('isAuthenticated()')}">
         <div th:replace="~{fragments/header :: header}"></div>
-        <h1>Je suis dans layout et normalement je m'affiche si le user est authentifié</h1>
+        <div th:replace="~{fragments/vertical-menu :: categories}"></div>
+        <h4>Je suis dans layout et normalement je m'affiche si le user est authentifié</h4>
     </div>
 
-    <div sec:authorize="isAuthenticated()">
+    <!-- <div sec:authorize="isAuthenticated()">
         This content is only shown to authenticated users.
-    </div>
+    </div> -->
 
     <!-- The body content will be replaced by individual pages -->
     <div>

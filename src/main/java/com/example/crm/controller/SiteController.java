@@ -66,7 +66,10 @@ public class SiteController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboardPage() {
-        return "dashboard";
+    public String dashboardPage(ModelMap map, @AuthenticationPrincipal User userAuth) {
+        String  username = userAuth.getUsername();
+        User user = userService.findByEmail(username);
+        map.put("categories", user.getCategories());
+        return "documents";
     }
 }
