@@ -19,6 +19,7 @@ public class Category {
     private Long id;
 
     private String name;
+    private String photo;
 
     @OneToMany
     private List<Document> documents;
