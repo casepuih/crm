@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.example.crm.model.Category;
 import com.example.crm.model.User;
 import com.example.crm.repository.UserRepository;
 
@@ -50,5 +51,12 @@ public class UserService implements UserDetailsService {
 
     public User findByEmail(String username) {
         return userRepository.findByEmail(username);
+    }
+
+    public void addCategory(User user, Category cat) {
+        List<Category> categories = user.getCategories();
+        categories.add(cat);
+        user.setCategories(categories);
+        userRepository.save(user);
     }
 }

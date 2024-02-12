@@ -1,63 +1,71 @@
-// On page load or when changing themes, best to add inline in `head` to avoid FOUC
-if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark')
-    } else {
-    document.documentElement.classList.remove('dark')
-    }
+// // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+// if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+//     document.documentElement.classList.add('dark')
+//     } else {
+//     document.documentElement.classList.remove('dark')
+//     }
 
-// Whenever the user explicitly chooses light mode
-localStorage.theme = 'light'
+// // Whenever the user explicitly chooses light mode
+// localStorage.theme = 'light'
 
-// Whenever the user explicitly chooses dark mode
-localStorage.theme = 'dark'
+// // Whenever the user explicitly chooses dark mode
+// localStorage.theme = 'dark'
 
-// Whenever the user explicitly chooses to respect the OS preference
-localStorage.removeItem('theme')
+// // Whenever the user explicitly chooses to respect the OS preference
+// localStorage.removeItem('theme')
 
 
 
 // add post upload image 
-document.getElementById('addPostUrl').addEventListener('change', function(){
-if (this.files[0] ) {
-    var picture = new FileReader();
-    picture.readAsDataURL(this.files[0]);
-    picture.addEventListener('load', function(event) {
-    document.getElementById('addPostImage').setAttribute('src', event.target.result);
-    document.getElementById('addPostImage').style.display = 'block';
-    });
-}
+// document.getElementById('addPostUrl').addEventListener('change', function(){
+// if (this.files[0] ) {
+//     var picture = new FileReader();
+//     picture.readAsDataURL(this.files[0]);
+//     picture.addEventListener('load', function(event) {
+//     document.getElementById('addPostImage').setAttribute('src', event.target.result);
+//     document.getElementById('addPostImage').style.display = 'block';
+//     });
+// }
+// });
+
+
+// // Create Status upload image 
+// document.getElementById('createStatusUrl').addEventListener('change', function(){
+// if (this.files[0] ) {
+//     var picture = new FileReader();
+//     picture.readAsDataURL(this.files[0]);
+//     picture.addEventListener('load', function(event) {
+//     document.getElementById('createStatusImage').setAttribute('src', event.target.result);
+//     document.getElementById('createStatusImage').style.display = 'block';
+//     });
+// }
+// });
+
+
+// // create product upload image
+// document.getElementById('createProductUrl').addEventListener('change', function(){
+// if (this.files[0] ) {
+//     var picture = new FileReader();
+//     picture.readAsDataURL(this.files[0]);
+//     picture.addEventListener('load', function(event) {
+//     document.getElementById('createProductImage').setAttribute('src', event.target.result);
+//     document.getElementById('createProductImage').style.display = 'block';
+//     });
+// }
+// });
+
+$(document).ready(function () {
+
+    let fileUpload = $("#fileUploadModules"); // mon input type file
+    fileUpload.simpleUpload({
+        url : "/file/upload"
+    }).on("upload:done", function (e,file, i , data) { // cette méthode sera appelée lorsque le telechargement sera terminé
+        if(data.erreur == true){
+            alert(data.message)
+            return
+        }
+        $("#pathImage").val(data.url)
+        $("#image").attr("src","/file/image/"+data.url)
+    })
+
 });
-
-
-// Create Status upload image 
-document.getElementById('createStatusUrl').addEventListener('change', function(){
-if (this.files[0] ) {
-    var picture = new FileReader();
-    picture.readAsDataURL(this.files[0]);
-    picture.addEventListener('load', function(event) {
-    document.getElementById('createStatusImage').setAttribute('src', event.target.result);
-    document.getElementById('createStatusImage').style.display = 'block';
-    });
-}
-});
-
-
-// create product upload image
-document.getElementById('createProductUrl').addEventListener('change', function(){
-if (this.files[0] ) {
-    var picture = new FileReader();
-    picture.readAsDataURL(this.files[0]);
-    picture.addEventListener('load', function(event) {
-    document.getElementById('createProductImage').setAttribute('src', event.target.result);
-    document.getElementById('createProductImage').style.display = 'block';
-    });
-}
-});
-
-
-
-
-
-
-
-    
