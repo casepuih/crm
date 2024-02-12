@@ -65,3 +65,26 @@ form button {
     text-align: center;
     margin-top: 10px;
 }
+
+.navbar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 12px;
+}
+
+.main {
+    background-color: var(--neutral);
+    display: flex;
+    flex-direction: row;
+}
+
+.vertical-menu {
+    width: 255px;
+}
+
+.dashboard-container {
+    background-color: #f39b6d;
+    border-radius: 40px;
+    flex: 1;
+}

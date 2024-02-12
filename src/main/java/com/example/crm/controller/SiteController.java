@@ -3,16 +3,15 @@ package com.example.crm.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.crm.manager.TokenManager;
 import com.example.crm.model.User;
 import com.example.crm.service.RoleService;
 import com.example.crm.service.UserService;
@@ -29,20 +28,15 @@ public class SiteController {
     @Autowired
     private RoleService roleService;
     
-    @GetMapping("")
-    public String home(ModelMap map) {
+    @GetMapping("/")
+    public String home(ModelMap map, @AuthenticationPrincipal User user) {
+        map.put("user", user);
         return "home";
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String loginPage() {
         return "login";
-    }
-
-    @PostMapping("/login")
-    public String postMethodName(@RequestBody String entity) {
-        //TODO: process POST request for login
-        return "redirect:/user";
     }
 
     @GetMapping("/register")
@@ -67,9 +61,12 @@ public class SiteController {
         newUser.setActive(true);
         newUser.setRole(roleService.create("USER"));
 
-        // token sera comme id
-        newUser.setToken(TokenManager.generateToken(userService));
         userService.create(newUser);
         return "register";
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboardPage() {
+        return "dashboard";
     }
 }

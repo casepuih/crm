@@ -3,11 +3,15 @@
 <html lang="en" 
     th:replace="~{fragments/layout :: layout(~{::title}, ~{::div.main})}">
 <head>
-    <title>Gestion de document | Accueil </title>
+    <title>CRM | Accueil </title>
 </head>
 <body>
-    <div class="main">
+    <div class="main container">
         <p>Gérez tous vos documents facilement</p>
+        <div sec:authorize="isAuthenticated()">
+            This content is only shown to authenticated users.
+          </div>
+          <div th:text="${#authentication.isAuthenticated()}"></div>
     </div>
 </body>
 </html>

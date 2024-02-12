@@ -1,48 +1,46 @@
 <header>
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">My Stock</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    </li>
+    <div class="navbar-header">
+        <div class="d-flex">
+            <h4>Dashboard</h4>
+        </div>
+        <div class="d-flex">
+            <!-- Search bar -->
+            <div class="dropdown">
+                <button type="button" class="btn header-item" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-search icon-sm"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-md p-0 show" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 72px);" data-popper-placement="bottom-end">
+                    <form class="p-2">
+                        <div class="search-box">
+                            <div class="position-relative">
+                                <input type="text" class="form-control bg-light border-0" placeholder="Search...">
+                                <i class="fas fa-search search-icon"></i>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- User related dropdown -->
+            <div class="dropdown">
+                <button type="button" class="btn header-item user text-start d-flex align-items-center show" id="page-header-user-dropdown-v" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <!-- <img class="rounded-circle header-profile-user" src="img/avatar-1.jpg" alt="Header Avatar"> -->
+                </button>
+                <div class="dropdown-menu dropdown-menu-end show">
+                    <div class="p-3 border-bottom">
+                        <h6 class="mb-0">Name</h6>
+                        <p class="mb-0 font-size-11 text-muted" th:text="${authenticatedUser}">Email</p>
+                    </div>
+                    <a href="" class="dropdown-item">
+                        <i class="mdi mdi-message-text-outline text-muted font-size-16 align-middle me-1"></i> 
+                        <span class="align-middle">Profile</span>
+                    </a>
+                    <a href="logout.html" class="dropdown-item">
+                        <i class="mdi mdi-logout text-muted font-size-16 align-middle me-1"></i> 
+                        <span class="align-middle">Déconnexion</span></a>
+                    </a>
+                </div>
 
-                    <li class="nav-item" sec:authorize="isAnonymous()">
-                        <a class="nav-link actives" aria-current="page" href="/register">Créer un compte</a>
-                    </li>
-
-                    <li class="nav-item" sec:authorize="isAnonymous()">
-                        <a class="nav-link actives" aria-current="page" href="/login">Se connecter</a>
-                    </li>
-
-                    <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
-                        <a href="/user" class="nav-link actives" aria-current="page">Mes produits</a>
-                    </li>
-    
-                    <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                           Dashboard
-                        </a>
-                        <ul class="dropdown-menu bg-light">
-                            <li><a class="dropdown-item" href="/admin"><i class="fa fa-list"></i>Liste</a></li>
-                            <li><a class="dropdown-item" href="/admin/bien/add"><i class="fa fa-plus"></i>Ajouter</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link actives" aria-current="page" th:href="@{/logout}" th:onclick="'return confirm(\'Are you sure you want to logout?\')'">Déconnexion</a>
-                    </li>
-    
-                </ul>
-                <!-- <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form> -->
             </div>
         </div>
-    </nav>
+    </div>
 </header>
