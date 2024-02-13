@@ -727,6 +727,7 @@ input:checked + .switch-button:before {
 /* 1 */
 [class*="uk-transition-scale"] {
   -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 .uk-transition-scale-up {
   --uk-scale-x: 1;

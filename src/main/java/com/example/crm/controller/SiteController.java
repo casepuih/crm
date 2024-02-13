@@ -1,6 +1,8 @@
 package com.example.crm.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.crm.model.Category;
 import com.example.crm.model.User;
+import com.example.crm.model.dto.UserDto;
 import com.example.crm.service.CategoryService;
 import com.example.crm.service.DocumentService;
 import com.example.crm.service.RoleService;
@@ -38,14 +42,19 @@ public class SiteController {
     @Autowired
     private DocumentService documentService;
     
-    @GetMapping("/")
-    public String home(ModelMap map, @AuthenticationPrincipal User user) {
+    @GetMapping("/dashboard")
+    public String home(ModelMap map, @AuthenticationPrincipal User userAuth) {
+        String  username = userAuth.getUsername();
+        User user = userService.findByEmail(username);
+        UserDto userDto = new UserDto(user);
+        List<Category> categories = userDto.getCategories();
         map.put("user", user);
-        return "home";
+        map.put("categories", categories);
+        return "documents";
     }
 
     @GetMapping("/login")
-    public String loginPage() {
+    public String login() {
         return "login";
     }
 
@@ -54,7 +63,6 @@ public class SiteController {
         return "register";
     }
     
-
     @PostMapping("/register")
     public String register(@RequestParam("username") String username, @RequestParam("password") String password) {
         // Check if email already exists 
@@ -72,22 +80,16 @@ public class SiteController {
         newUser.setRole(roleService.create("USER"));
 
         userService.create(newUser);
-        return "register";
+        return "redirect:/";
     }
 
-    @GetMapping("/dashboard")
-    public String dashboardPage(ModelMap map, @AuthenticationPrincipal User userAuth) {
-        String  username = userAuth.getUsername();
-        User user = userService.findByEmail(username);
-        map.put("categories", user.getCategories());
-        return "documents";
-    }
-
-    @GetMapping("/components")
-    public String components() {
-        return "components";
-    }
-    
+    // @GetMapping("/dashboard")
+    // public String dashboardPage(ModelMap map, @AuthenticationPrincipal User userAuth) {
+    //     String  username = userAuth.getUsername();
+    //     User user = userService.findByEmail(username);
+    //     map.put("categories", user.getCategories());
+    //     return "documents";
+    // }
 
     @GetMapping("/{category_id}/documents")
     public String showDocuments(ModelMap map, @AuthenticationPrincipal User userAuth, @NonNull @PathVariable Long category_id) {

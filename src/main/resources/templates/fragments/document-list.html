@@ -69,9 +69,9 @@
 
 
         <!-- documents list -->
-        <div class="space-y-2 p-2 overflow-y-auto md:h-[calc(100vh-204px)] h-[calc(100vh-130px)]" th:each="doc : ${docs}">
+        <div class="space-y-2 p-2 overflow-y-auto md:h-[calc(100vh-204px)] h-[calc(100vh-130px)]" th:each="doc : *{documents}">
             <!-- <span th:text="${user.email}" class="text-2xl font-bold text-black ml-1 dark:text-white"></span> -->
-            <a th:href="@{'/' + ${category.id} + '/documents/' + ${doc.id}}" class="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-secondery">
+            <a th:if="${doc.category eq category}" th:href="@{'/' + ${category.id} + '/documents/' + ${doc.id}}" class="relative flex items-center gap-4 p-2 duration-200 rounded-xl hover:bg-secondery">
                 <div class="relative w-14 h-14 shrink-0"> 
                     <img src="/assets/images/avatars/avatar-2.jpg" alt="" class="object-cover w-full h-full rounded-full">
                 </div>

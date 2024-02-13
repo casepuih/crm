@@ -22,13 +22,14 @@ public class SecurityConfiguration {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests((auth) -> auth
                 .requestMatchers("/register", "/login").permitAll()
-                .requestMatchers("/static/**").permitAll()
+                // .requestMatchers("/static/**").permitAll()
                 .anyRequest().authenticated() 
             )
             // .formLogin(Customizer.withDefaults())
             .formLogin(form -> form 
                 .loginPage("/login")
                 .defaultSuccessUrl("/dashboard")
+                // .failureUrl("/login")
             )
             .logout(form -> form 
                 .logoutUrl("/logout")

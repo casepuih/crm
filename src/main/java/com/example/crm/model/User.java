@@ -1,6 +1,6 @@
 package com.example.crm.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -8,6 +8,8 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,13 +40,14 @@ public class User implements UserDetails {
     @CreationTimestamp
     private Date createdAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Category> categories;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @JsonIgnoreProperties("documents")
     private List<Document> documents = new ArrayList<>();
 
     @Override
@@ -78,4 +81,19 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return active;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+            "id=" + id +
+            ", lastName='" + lastName + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", email='" + email + '\'' +
+            ", active=" + active +
+            ", token='" + token + '\'' +
+            ", createdAt=" + createdAt +
+            ", role=" + (role != null ? role.getName() : null) + // Assuming Role has a getName() method
+            ", documentCount=" + (documents != null ? documents.size() : 0) + // Count of documents
+            '}';
+        }
 }

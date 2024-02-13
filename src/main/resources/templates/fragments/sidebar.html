@@ -7,7 +7,7 @@
 
             <nav id="side">
             
-                <ul th:each="category : ${categories}">
+                <ul th:each="category : *{categories}">
                     <li>
                         <a th:href="@{'/' + ${category.id} + '/documents'}">
                             <img src="/assets/images/icons/home.png" alt="feeds" class="w-6">
